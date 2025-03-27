@@ -30,6 +30,8 @@ body {
 
 .card {
   background: rgba(255, 255, 255, 0.1); /* Полупрозрачный белый для карточек */
+  backdrop-filter: blur(5px); /* Размытие фона позади объекта */
+  -webkit-backdrop-filter: blur(5px); /* Поддержка для Webkit-браузеров */
   border-radius: 15px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
   border: 1px solid rgba(255, 255, 255, 0.1);
