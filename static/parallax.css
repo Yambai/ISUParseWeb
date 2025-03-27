@@ -15,7 +15,7 @@
   position: absolute;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.05); /* Полупрозрачный белый */
-  opacity: 0.3;
+  opacity: 0.5;
 }
 
 .shape-1 {
@@ -73,7 +73,7 @@
 }
 
 /* Медиа-запрос для широких экранов (больше 600px) */
-@media (min-width: 601px) {
+@media (min-width: 900px) {
   .parallax-video {
     display: block; /* Показываем видео */
   }

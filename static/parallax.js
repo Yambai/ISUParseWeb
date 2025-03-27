@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Коэффициент сглаживания (чем меньше, тем плавнее)
-  const easing = 0.1;
+  const easing = 0.05;
 
   // Функция для обновления позиций с анимацией
   function updateParallax() {
