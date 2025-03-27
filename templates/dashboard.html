@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Дашбоард</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#4CAF50"> <!-- Цвет статус-бара -->
+  <meta name="apple-mobile-web-app-capable" content="yes"> <!-- Для iOS -->
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"> <!-- Статус-бар на iOS -->
+  <link rel="apple-touch-icon" href="{{ url_for('static', filename='icons/icon-192x192.png') }}"> <!-- Иконка для iOS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200..900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='parallax.css') }}">
+</head>
+<body>
+  <script>
+    // Определяем глобальные переменные
+    window.currentSemester = {{ selected_semester | tojson }};
+    const totalSemesters = {{ total_semesters | tojson }};
+    // Проверяем режим отображения
+    if (window.matchMedia('(display-mode: standalone)').matches) {
+      console.log('Running in standalone mode');
+    } else {
+      console.log('Running in browser mode');
+    }
+
+  </script>
+  <!-- Элементы параллакса -->
+  <div class="parallax-container">
+  <!-- Фигуры для узких экранов -->
+  <div class="parallax-shape shape-1"></div>
+  <div class="parallax-shape shape-2"></div>
+  <div class="parallax-shape shape-3"></div>
+  <!-- Видео для широких экранов -->
+  <video class="parallax-video left-video video-1" autoplay loop muted playsinline>
+    <source src="{{ url_for('static', filename='videos/parallax-left-1.webm') }}" type="video/webm">
+    Your browser does not support the video tag.
+  </video>
+  <video class="parallax-video left-video video-2" autoplay loop muted playsinline>
+    <source src="{{ url_for('static', filename='videos/parallax-left-2.webm') }}" type="video/webm">
+    Your browser does not support the video tag.
+  </video>
+  <video class="parallax-video right-video video-1" autoplay loop muted playsinline>
+    <source src="{{ url_for('static', filename='videos/parallax-right-1.webm') }}" type="video/webm">
+    Your browser does not support the video tag.
+  </video>
+  <video class="parallax-video right-video video-2" autoplay loop muted playsinline>
+    <source src="{{ url_for('static', filename='videos/parallax-right-2.webm') }}" type="video/webm">
+    Your browser does not support the video tag.
+  </video>
+</div>
+
+  <div class="nav-card-container">
+    <nav class="nav-bar">
+      <button id="menu-toggle" class="nav-button">
+        <span class="material-icons nav-icon">menu</span>
+        <span class="nav-text">Меню</span>
+      </button>
+      <button id="refresh" class="nav-button">
+        <span class="material-icons nav-icon">refresh</span>
+        <span class="nav-text">Обновить</span>
+        <span class="material-icons loading-spinner" style="display: none;">refresh</span>
+      </button>
+      <a href="{{ url_for('logout') }}" class="nav-button">
+        <span class="material-icons nav-icon">logout</span>
+        <span class="nav-text">Выход</span>
+      </a>
+    </nav>
+  </div>
+
+  <div id="sidebar" class="sidebar">
+    <h2>Семестры</h2>
+    <div class="semester-cards">
+      {% for i in range(1, total_semesters + 1) %}
+        <a href="#" class="semester-card" data-semester="{{ i }}">Семестр {{ i }}</a>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="container">
+    <h1 id="semester-title">Оценки по семестрам (Семестр {{ selected_semester }})</h1>
+    <div class="cards" id="cards-container">
+      {% if cards %}
+        {% for card in cards %}
+          <div class="card subject-card">
+            <h3>{{ card.subject }}</h3>
+            {% if card.scores %}
+              <div class="scores">
+                {% for score in card.scores %}
+                  {{ score | safe }}
+                {% endfor %}
+              </div>
+            {% else %}
+              <p>Нет оценок</p>
+            {% endif %}
+          </div>
+        {% endfor %}
+      {% else %}
+        <p>Нет данных для отображения.</p>
+      {% endif %}
+    </div>
+  </div>
+
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+  <script src="{{ url_for('static', filename='parallax.js') }}"></script>
+</body>
+</html>

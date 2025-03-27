@@ -1,0 +1,304 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Unbounded', 'Helvetica Neue', Arial, sans-serif;
+  font-weight: 400;
+  font-optical-sizing: auto;
+  font-style: normal;
+  background: linear-gradient(135deg, #1a1a1a, #2c3e50); /* Темный градиент */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 60px;
+  position: relative; /* Для параллакса */
+  overflow-x: hidden; /* Предотвращаем горизонтальный скролл */
+  color: #e0e0e0; /* Светлый текст для читаемости */
+}
+
+.container {
+  width: 90%;
+  max-width: 600px;
+  padding: 20px;
+  z-index: 10; /* Чтобы контент был выше параллакс-элементов */
+  position: relative;
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.1); /* Полупрозрачный белый для карточек */
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 20px;
+  margin: 10px 0;
+  color: #e0e0e0; /* Светлый текст */
+}
+
+.subject-card {
+  margin: 10px;
+  flex: 1 1 calc(100% - 20px);
+}
+
+.subject-card h3 {
+  font-family: 'Unbounded', sans-serif;
+  font-weight: 800;
+  font-optical-sizing: auto;
+  font-style: normal;
+  color: #ffffff; /* Белый цвет для заголовков */
+}
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+form input {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.2); /* Темный фон для полей ввода */
+  outline: none;
+  font-family: 'Unbounded', sans-serif;
+  font-weight: 400;
+  font-optical-sizing: auto;
+  font-style: normal;
+  color: #ffffff; /* Белый текст */
+}
+
+form input::placeholder {
+  color: #b0b0b0; /* Светлый цвет для placeholder */
+}
+
+form button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 10px;
+  background-color: #4CAF50; /* Зеленая кнопка */
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s;
+  font-family: 'Unbounded', sans-serif;
+  font-weight: 600;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+form button:hover {
+  background-color: #45a049;
+}
+
+.error {
+  color: #e74c3c;
+  margin-bottom: 10px;
+  font-family: 'Unbounded', sans-serif;
+  font-weight: 400;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+.score {
+  padding: 5px 10px;
+  border-radius: 5px;
+  display: inline-block;
+  margin: 2px;
+  font-family: 'Unbounded', sans-serif;
+  font-weight: 500;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+.score-3 {
+  background-color: #f39c12;
+  color: white;
+}
+
+.score-pass, .score-4, .score-5 {
+  background-color: #2ecc71;
+  color: white;
+}
+
+.score-fail {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.score-empty {
+  background-color: #95a5a6;
+  color: white;
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -250px;
+  width: 250px;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4); /* Полупрозрачный темный фон */
+  backdrop-filter: blur(100px); /* Размытие фона позади объекта */
+  -webkit-backdrop-filter: blur(5px); /* Поддержка для Webkit-браузеров */
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+  transition: left 0.3s ease;
+  padding: 20px;
+  z-index: 1200;
+  overflow-y: auto;
+  color: #e0e0e0; /* Светлый текст */
+}
+
+.sidebar.active {
+  left: 0;
+}
+
+.sidebar h2 {
+  margin-bottom: 20px;
+  font-family: 'Unbounded', sans-serif;
+  font-weight: 900;
+  font-optical-sizing: auto;
+  font-style: normal;
+  color: #ffffff; /* Белый цвет для заголовков */
+}
+
+.semester-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+}
+
+.semester-card {
+  background: rgba(200, 200, 200, 0.3); /* Полупрозрачный серый */
+  border-radius: 10px;
+  padding: 15px;
+  text-align: center;
+  text-decoration: none;
+  color: #e0e0e0; /* Светлый текст */
+
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  transition: background 0.3s;
+  font-family: 'Unbounded', sans-serif;
+  font-weight: 600;
+  font-optical-sizing: auto;
+  font-style: normal;
+
+}
+
+.semester-card:hover {
+  background: rgba(150, 150, 150, 0.3);
+}
+
+.semester-card.active {
+  background: #4CAF50;
+  color: white;
+}
+
+.nav-card-container {
+  position: fixed;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(150, 150, 150, 0.3);
+  border-radius: 15px;
+  padding: 5px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  z-index: 1100;
+  width: 80%;
+  max-width: 400px;
+  display: flex;
+  justify-content: center;
+}
+
+.nav-bar {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 300px;
+}
+
+.nav-button {
+  background: none;
+  border: none;
+  padding: 8px;
+  text-decoration: none;
+  color: #e0e0e0; /* Светлый текст */
+  cursor: pointer;
+  transition: background 0.3s;
+  font-family: 'Unbounded', sans-serif;
+  font-weight: 700;
+  font-optical-sizing: auto;
+  font-style: normal;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  position: relative;
+}
+
+.nav-button:hover {
+  background: rgba(255, 255, 255, 0.2); /* Полупрозрачный белый при наведении */
+  border-radius: 10px;
+}
+
+.nav-button:active {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.nav-icon {
+  display: none;
+}
+
+.nav-text {
+  display: inline;
+}
+
+/* Стили для спиннера загрузки */
+.loading-spinner {
+  display: none;
+  font-size: 24px;
+  animation: spin 1s linear infinite;
+}
+
+/* Анимация вращения для спиннера */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Медиа-запрос для узких экранов (меньше 600px) */
+@media (max-width: 600px) {
+  .nav-card-container {
+    padding: 3px;
+    max-width: 200px;
+  }
+
+  .nav-bar {
+    max-width: 180px;
+  }
+
+  .nav-button {
+    padding: 5px;
+  }
+
+  .nav-icon {
+    display: inline;
+    font-size: 24px;
+  }
+
+  .nav-text {
+    display: none;
+  }
+}
